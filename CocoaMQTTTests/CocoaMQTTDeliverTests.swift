@@ -175,6 +175,19 @@ class CocoaMQTTDeliverTests: XCTestCase {
         XCTAssertEqual(deliver.t_retryIntervalNanoseconds(), 1)
     }
 
+    func testRetryIntervalNanosecondsHandlesInvalidAndHugeValues() {
+        let deliver = CocoaMQTTDeliver()
+
+        deliver.retryTimeInterval = .infinity
+        XCTAssertEqual(deliver.t_retryIntervalNanoseconds(), 1)
+
+        deliver.retryTimeInterval = .nan
+        XCTAssertEqual(deliver.t_retryIntervalNanoseconds(), 1)
+
+        deliver.retryTimeInterval = (Double(UInt64.max) / 1_000_000.0) + 1
+        XCTAssertEqual(deliver.t_retryIntervalNanoseconds(), UInt64.max)
+    }
+
     func testRedeliverWithZeroRetryIntervalDoesNotCrash() {
         let caller = Caller()
         let deliver = CocoaMQTTDeliver()
