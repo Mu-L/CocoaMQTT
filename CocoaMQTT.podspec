@@ -27,8 +27,6 @@ Pod::Spec.new do |s|
     # values from the parent spec, so all supported platforms are redeclared.
     ss.ios.deployment_target = "12.0"
     ss.osx.deployment_target = "10.13"
-    # Support Starscream 4.x and 5.x API
-    # Starscream 4.0.8+ requires tvOS 12.0 in CocoaPods, so tvOS is raised here.
     ss.tvos.deployment_target = "12.0"
     ss.dependency "Starscream", ">= 4.0.8", "< 6.0"
     ss.source_files = "Source/CocoaMQTTWebSocket.swift"
