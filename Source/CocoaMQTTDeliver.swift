@@ -216,6 +216,9 @@ extension CocoaMQTTDeliver {
         guard intervalNs.isFinite, intervalNs > 0 else {
             return 1
         }
+        if intervalNs >= Double(UInt64.max) {
+            return UInt64.max
+        }
         return UInt64(intervalNs.rounded())
     }
 
